@@ -27,7 +27,8 @@ app.get("/notes", function(req,res) {
 app.get("/api/notes", function(req,res) {
     fs.readFile(dbPath, "utf8", (err, data) => {
         if (err) throw err;
-        res.status(200).json(data);
+        const json = JSON.parse(data);
+        res.status(200).json(json);
     });
 });
 
@@ -44,14 +45,16 @@ app.post("/api/notes", function(req,res) {
 });
 
 app.delete("/api/notes/:id", function(req,res) {
-    const removeId = req.param("id");
+    const removeId = req.params.id;
 
-    const data = fs.readFile(dbPath);
-    var json = JSON.parse(data);
-    json = users.filter((user) => { return json.id !== removeId });
-    fs.writeFileSync('results.json', JSON.stringify(json, null, 2));
+    const data = fs.readFileSync(dbPath, "utf8");
+    console.log(data);
+    let obj = JSON.parse(data);
+    console.log(obj);
+    // json = users.filter((user) => { return json.id !== removeId });
+    // console.log(json);
 
-
+    // fs.writeFileSync('results.json', JSON.stringify(json, null, 2));
 
 });
 
