@@ -2,9 +2,9 @@
 
 An application that can be used to write, save, and delete notes. This application will uses an express backend to save and retrieve note data from a JSON file.
 
-!["App Homepage"](https://github.com/julacosta9/Template-Engine-CLI/blob/master/assets/html-screenshot.PNG "App Homepage")
+!["App Homepage"](https://raw.githubusercontent.com/julacosta9/note-taker-app/master/public/assets/readme-screenshots/homepage.png "App Homepage")
 
-!["Note Page Screenshot"](https://github.com/julacosta9/Template-Engine-CLI/blob/master/assets/terminal-screenshot.PNG "Note Page Screenshot")
+!["Note Page Screenshot"](https://raw.githubusercontent.com/julacosta9/note-taker-app/master/public/assets/readme-screenshots/notes-page.png "Note Page Screenshot")
 
 ## Installation
 
