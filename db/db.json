@@ -1,1 +1,22 @@
-{"id": "1","title": "Test Title","text": "Test text"}
+[
+  {
+    "id": "1",
+    "title": "Favorite Movies",
+    "text": "The Matrix. That's it. That's the whole note."
+  },
+  {
+    "id": "2",
+    "title": "Exam Notes",
+    "text": "2 + 2 = 4"
+  },
+  {
+    "id": 1584121302951,
+    "title": "Org Chart",
+    "text": "Me = CEO"
+  },
+  {
+    "id": 1584122719452,
+    "title": "To-do",
+    "text": "Walk dog, walk cat, feed fish"
+  }
+]
