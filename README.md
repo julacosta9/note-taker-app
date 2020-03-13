@@ -13,3 +13,5 @@ Clone repo, install dependencies, and invoke the application with the following 
 ```sh
 node app.js
 ```
+
+Then, navigate in your browser to the localhost port used (set to 3002 by default).
