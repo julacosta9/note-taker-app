@@ -11,20 +11,19 @@ const PORT = 3002;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
 const dbPath = path.join(__dirname, "/db/db.json");
 
 // HTML Routes
-app.get("/", function(req,res) {
+app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.get("/notes", function(req,res) {
+app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 
 // API Routes
-app.get("/api/notes", function(req,res) {
+app.get("/api/notes", function(req, res) {
     fs.readFile(dbPath, "utf8", (err, data) => {
         if (err) throw err;
         const json = JSON.parse(data);
@@ -32,33 +31,40 @@ app.get("/api/notes", function(req,res) {
     });
 });
 
-app.post("/api/notes", function(req,res) {
-    //Generate unique ID
-    let id = 1;
-    const newNote = {"id": id, "title": req.body.title, "text": req.body.text};
+app.post("/api/notes", function(req, res) {
+    const newNote = {
+        id: Date.now(),
+        title: req.body.title,
+        text: req.body.text
+    };
 
-
-    fs.appendFile(dbPath, newNote, function (err) {
+    const data = fs.readFileSync(dbPath, "utf8");
+    let obj = JSON.parse(data);
+    obj.push(newNote);
+    let objString = JSON.stringify(obj, null, 2);
+    
+    fs.writeFile(dbPath, objString, "utf8", err => {
         if (err) throw err;
-        console.log('Note has been added to db!');
+        console.log("Note has been added to db!");
     });
 });
 
-app.delete("/api/notes/:id", function(req,res) {
-    const removeId = req.params.id;
+app.delete("/api/notes/:id", function(req, res) {
+    const idToDelete = req.params.id;
 
     const data = fs.readFileSync(dbPath, "utf8");
     console.log(data);
     let obj = JSON.parse(data);
-    console.log(obj);
-    // json = users.filter((user) => { return json.id !== removeId });
-    // console.log(json);
+    let objWithoutDeletedID = obj.filter(note => { return note.id != idToDelete });
+    let objString = JSON.stringify(objWithoutDeletedID, null, 2);
 
-    // fs.writeFileSync('results.json', JSON.stringify(json, null, 2));
-
+    fs.writeFile(dbPath, objString, "utf8", err => {
+        if (err) throw err;
+        console.log(`Note with id ${idToDelete} has been deleted.`);
+    });
 });
 
 // Set server to listen
 app.listen(PORT, () => {
-    console.log("App listening to port " + PORT)
+    console.log("App listening to port " + PORT);
 });
